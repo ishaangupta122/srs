@@ -42,7 +42,7 @@ export const DeleteDialog = ({
           <DialogTitle>Are you sure you want to delete?</DialogTitle>
         </DialogHeader>
 
-        <div className="text-gray-600 text-sm">
+        <div className="text-red-600 text-sm">
           This action cannot be undone. The teacher data will be permanently
           deleted.
         </div>

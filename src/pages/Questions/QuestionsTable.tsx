@@ -80,7 +80,7 @@ export function QuestionsTable() {
           <div className="flex items-center justify-between gap-5">
             <h1 className="text-3xl font-medium">Questions Management</h1>
             <button
-              className="text-lg font-medium bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800 transition duration-200 cursor-pointer"
+              className="text-lg font-medium bg-[#22C55E] text-white px-4 py-2 rounded-md hover:bg-[#22c563] transition duration-200 cursor-pointer"
               onClick={() => setAddDialogOpen(true)}>
               Add Question
             </button>
@@ -93,32 +93,6 @@ export function QuestionsTable() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="h-12 w-[150px] text-lg cursor-pointer bg-green-700 hover:bg-green-800 text-white hover:text-white">
-                  {selectedCategory}
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                className={` ${
-                  theme === "dark"
-                    ? ""
-                    : "bg-green-700 hover:bg-green-800 text-white hover:text-white"
-                }`}>
-                {["All", "Department", "Semester", "Subject"].map((item) => (
-                  <DropdownMenuItem
-                    key={item}
-                    onClick={() => setSelectedCategory(item)}
-                    className="cursor-pointer text-lg">
-                    {item}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu> */}
           </div>
         </div>
 

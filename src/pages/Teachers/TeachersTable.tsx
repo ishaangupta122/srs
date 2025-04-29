@@ -114,7 +114,7 @@ export function TeachersTable() {
           <div className="flex items-center justify-between gap-5">
             <h1 className="text-3xl font-medium">Teachers Management</h1>
             <button
-              className="text-lg font-medium bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-800 transition duration-200 cursor-pointer"
+              className="text-lg font-medium bg-[#22C55E] text-white px-4 py-2 rounded-md transition duration-200 cursor-pointer"
               onClick={() => setAddDialogOpen(true)}>
               Add Teacher
             </button>
@@ -132,7 +132,8 @@ export function TeachersTable() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="h-12 w-[150px] text-lg cursor-pointer bg-green-700 hover:bg-green-800 text-white hover:text-white">
+                  className="h-12 w-[150px] text-lg cursor-pointer bg-[#22C55E]
+                  hover:bg-[#22C55E] text-white hover:text-white">
                   {selectedCategory}
                 </Button>
               </DropdownMenuTrigger>
@@ -141,7 +142,7 @@ export function TeachersTable() {
                 className={` ${
                   theme === "dark"
                     ? ""
-                    : "bg-green-700 hover:bg-green-800 text-white hover:text-white"
+                    : "bg-[#22C55E] hover:bg-[#22c563] text-white hover:text-white"
                 }`}>
                 {["All", "Department", "Semester", "Subject"].map((item) => (
                   <DropdownMenuItem
@@ -159,7 +160,7 @@ export function TeachersTable() {
         <div className="mt-10">
           {loading ? (
             <div className="flex items-center justify-center py-10">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-700"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#22C55E]"></div>
             </div>
           ) : (
             <Table>

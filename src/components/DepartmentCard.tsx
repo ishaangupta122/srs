@@ -26,8 +26,8 @@ export function DepartmentsCards() {
                   </>
                 ) : (
                   <>
-                    <GraduationCap className="h-20 w-20 text-green-700" />
-                    <div className="text-green-700 text-lg font-semibold">
+                    <GraduationCap className="h-20 w-20 text-[#22C55E]" />
+                    <div className="text-[#22C55E] text-lg font-semibold">
                       {department.text}
                     </div>
                   </>

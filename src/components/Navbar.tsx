@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav
       className={`z-30 ${
-        theme === "dark" ? "bg-zinc-900/90" : "bg-green-700"
+        theme === "dark" ? "bg-zinc-900/90" : "bg-[#22C55E]"
       }  text-white sticky top-0 shadow-md`}>
       <div className="container mx-auto flex justify-between items-center p-4 px-6">
         {/* Logo */}
@@ -35,7 +35,7 @@ const Navbar = () => {
               key={link.to}
               to={link.to}
               className={`px-4 py-2 rounded-md hover:bg-white ${
-                theme === "dark" ? "hover:text-black" : "hover:text-green-700"
+                theme === "dark" ? "hover:text-black" : "hover:text-[#22C55E]"
               } transition-colors duration-200`}>
               {link.label}
             </Link>
@@ -70,7 +70,7 @@ const Navbar = () => {
       {/* Mobile Sidebar */}
       <div
         className={`fixed top-0 left-0 w-full h-full ${
-          theme === "dark" ? "bg-zinc-900" : "bg-green-700"
+          theme === "dark" ? "bg-zinc-900" : "bg-[#22C55E]"
         }  text-white transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out md:hidden z-40`}>
@@ -87,7 +87,7 @@ const Navbar = () => {
                 key={link.to}
                 to={link.to}
                 onClick={toggleSidebar}
-                className="p-3 rounded-md hover:bg-white hover:text-green-700 transition-colors duration-200">
+                className="p-3 rounded-md hover:bg-white hover:text-[#22C55E] transition-colors duration-200">
                 {link.label}
               </Link>
             ))}

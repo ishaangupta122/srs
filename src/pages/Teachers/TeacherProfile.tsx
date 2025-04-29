@@ -29,7 +29,7 @@ import Comments from "@/components/Comments";
 // Review Data with colors
 const reviewData = [
   { name: "Total", value: 120, color: "#2196f3" },
-  { name: "Positive", value: 80.33, color: "#00A63E" },
+  { name: "Positive", value: 80.33, color: "#22C55E" },
   { name: "Moderate", value: 25, color: "#ff9800" },
   { name: "Negative", value: 15, color: "#f44336" },
 ];
@@ -52,10 +52,15 @@ const Overview = () => {
         {theme === "dark" ? (
           <UserCircle2 className="h-16 w-16 text-white" />
         ) : (
-          <UserCircle2 className="h-16 w-16 text-black" />
+          <UserCircle2 className="h-16 w-16 text-[#22C55E]" />
         )}
         <div>
-          <CardTitle className="text-xl">{teacherId}</CardTitle>
+          <CardTitle
+            className={`text-xl ${
+              theme === "dark" ? "text-white" : "text-[#22C55E]"
+            }`}>
+            {teacherId}
+          </CardTitle>
         </div>
       </CardHeader>
     </Card>
@@ -64,8 +69,6 @@ const Overview = () => {
 
 // Reviews Component
 const Reviews = () => {
-  const { theme } = useTheme();
-
   return (
     <Card className="mb-6">
       <CardHeader>
@@ -101,14 +104,9 @@ const Reviews = () => {
               key={index}
               className="text-lg flex items-center justify-between">
               <span className="font-bold" style={{ color: item.color }}>
-                {item.name}
+                {item.name}:
               </span>
-              <span
-                className={`font-medium ${
-                  theme === "dark" ? "text-white" : "text-gray-600"
-                }`}>
-                {item.value}
-              </span>
+              <span className="font-medium">{item.value}</span>
             </div>
           ))}
         </div>
@@ -119,8 +117,6 @@ const Reviews = () => {
 
 // Scores Component
 const Scores = () => {
-  const { theme } = useTheme();
-
   return (
     <Card className="mb-6">
       <CardHeader>
@@ -136,7 +132,7 @@ const Scores = () => {
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="score" fill="#008236" />
+              <Bar dataKey="score" fill="#22C55E" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -147,13 +143,8 @@ const Scores = () => {
             <div
               key={index}
               className="text-lg flex items-center justify-between">
-              <span className="font-bold text-green-600">{item.name}</span>
-              <span
-                className={`font-medium ${
-                  theme === "dark" ? "text-white" : "text-gray-600"
-                }`}>
-                {item.score}
-              </span>
+              <span className="font-bold text-[#22C55E]">{item.name}:</span>
+              <span className="font-medium">{item.score}</span>
             </div>
           ))}
         </div>

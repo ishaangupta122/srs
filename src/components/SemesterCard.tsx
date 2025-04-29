@@ -20,8 +20,8 @@ export function SemesterCards() {
                   </>
                 ) : (
                   <>
-                    <GraduationCap className="h-20 w-20 text-green-700" />
-                    <div className="text-green-700 text-xl font-semibold">
+                    <GraduationCap className="h-20 w-20 text-[#22C55E]" />
+                    <div className="text-[#22C55E] text-xl font-semibold">
                       {semester.text}
                     </div>
                   </>
