@@ -57,9 +57,9 @@ export const AddDialog = ({ isOpen, onClose, onAdd }: AddDialogProps) => {
           </div>
           <DialogFooter className="pt-4">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="destructive">Cancel</Button>
             </DialogClose>
-            <Button variant="destructive">Add</Button>
+            <Button variant="default">Add</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

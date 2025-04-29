@@ -62,9 +62,9 @@ export const EditDialog = ({
           </div>
           <DialogFooter className="pt-4">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="destructive">Cancel</Button>
             </DialogClose>
-            <Button variant="destructive">Edit</Button>
+            <Button variant="default">Edit</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

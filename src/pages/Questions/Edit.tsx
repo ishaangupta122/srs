@@ -65,7 +65,7 @@ export const EditDialog = ({
 
           <DialogFooter className="pt-4">
             <DialogClose asChild>
-              <Button variant="outline" disabled={loading}>
+              <Button variant="destructive" disabled={loading}>
                 Cancel
               </Button>
             </DialogClose>

@@ -47,7 +47,7 @@ export const AddDialog = ({ isOpen, onClose, onAdd }: AddQuestionProps) => {
 
         <DialogFooter className="pt-4">
           <DialogClose asChild>
-            <Button variant="outline" type="button">
+            <Button variant="destructive" type="button">
               Cancel
             </Button>
           </DialogClose>
