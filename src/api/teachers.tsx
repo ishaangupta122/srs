@@ -24,13 +24,11 @@ export const fetchTeachersList = async (): Promise<any> => {
 
 // Fetch teacher by Branch and Semester
 export const fetchTeacherByBranchAndSemester = async (
-  branch: string,
-  semester: string
+  branch: string | undefined,
+  semester: string | undefined
 ): Promise<any> => {
   try {
-    const data = await API.get(
-      `/teachers?branch=${branch}&semester=${semester}`
-    );
+    const data = await API.get(`/`, { params: { branch, semester } });
     return data;
   } catch (error) {
     console.error("Error fetching teacher by branch and semester: \n", error);

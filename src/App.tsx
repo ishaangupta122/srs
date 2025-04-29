@@ -23,7 +23,7 @@ const App = () => {
           element={<TeacherCards />}
         />
         <Route
-          path="/reviews/semester/:semesterId/department/:departmentId/teacher/:teacherId"
+          path="/teachers/teacherProfile/:teacherId"
           element={<TeacherProfile />}
         />
         <Route

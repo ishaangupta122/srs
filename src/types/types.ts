@@ -69,3 +69,8 @@ export interface DeleteQuestionProps {
   onDelete: (questionId: string) => void;
   questionId: string | undefined;
 }
+
+export interface TeacherCard {
+  _id: string;
+  name: string;
+}

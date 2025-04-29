@@ -26,21 +26,6 @@ import { useState } from "react";
 import { StudentCards } from "@/components/StudentCard";
 import Comments from "@/components/Comments";
 
-// Review Data with colors
-const reviewData = [
-  { name: "Total", value: 120, color: "#2196f3" },
-  { name: "Positive", value: 80.33, color: "#22C55E" },
-  { name: "Moderate", value: 25, color: "#ff9800" },
-  { name: "Negative", value: 15, color: "#f44336" },
-];
-
-// Examination Data
-const examData = [
-  { name: "Examination", score: 88 },
-  { name: "Theory", score: 85 },
-  { name: "Practical", score: 90 },
-];
-
 // Overview Component
 const Overview = () => {
   const { teacherId } = useParams();
@@ -76,20 +61,27 @@ const Reviews = () => {
         <CardDescription>Distribution of review types</CardDescription>
       </CardHeader>
       <CardContent className="max-w-5xl flex flex-col md:flex-row items-center justify-between">
+        {/* Pie Chart (Manually Created) */}
         <div className="w-full md:w-1/2 h-80">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
-                data={reviewData}
+                data={[
+                  { name: "Total", value: 120 },
+                  { name: "Positive", value: 80.33 },
+                  { name: "Moderate", value: 25 },
+                  { name: "Negative", value: 15 },
+                ]}
                 dataKey="value"
                 nameKey="name"
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
                 label>
-                {reviewData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
+                <Cell fill="#2196f3" /> {/* Total */}
+                <Cell fill="#22C55E" /> {/* Positive */}
+                <Cell fill="#ff9800" /> {/* Moderate */}
+                <Cell fill="#f44336" /> {/* Negative */}
               </Pie>
               <Tooltip />
               <Legend />
@@ -97,18 +89,23 @@ const Reviews = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Text Fields with matching colors */}
         <div className="w-full md:w-1/3 mt-6 md:mt-0 space-y-3">
-          {reviewData.map((item, index) => (
-            <div
-              key={index}
-              className="text-lg flex items-center justify-between">
-              <span className="font-bold" style={{ color: item.color }}>
-                {item.name}:
-              </span>
-              <span className="font-medium">{item.value}</span>
-            </div>
-          ))}
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#2196f3]">Total :</span>
+            <span className="font-medium">120</span>
+          </div>
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#22C55E]">Positive :</span>
+            <span className="font-medium">80.33</span>
+          </div>
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#ff9800]">Moderate :</span>
+            <span className="font-medium">25</span>
+          </div>
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#f44336]">Negative :</span>
+            <span className="font-medium">15</span>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -126,8 +123,13 @@ const Scores = () => {
       <CardContent className="max-w-5xl flex flex-col md:flex-row items-center justify-between">
         <div className="w-full md:w-1/2 h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={examData}>
-              <CartesianGrid strokeDasharray="3 3" />
+            <BarChart
+              data={[
+                { name: "Examination", score: 88 },
+                { name: "Theory", score: 85 },
+                { name: "Practical", score: 90 },
+              ]}>
+              <CartesianGrid strokeDasharray="4 4" />
               <XAxis dataKey="name" />
               <YAxis domain={[0, 100]} />
               <Tooltip />
@@ -139,14 +141,18 @@ const Scores = () => {
 
         {/* Text Fields */}
         <div className="w-full md:w-1/3 mt-6 md:mt-0 space-y-3 md:px-5">
-          {examData.map((item, index) => (
-            <div
-              key={index}
-              className="text-lg flex items-center justify-between">
-              <span className="font-bold text-[#22C55E]">{item.name}:</span>
-              <span className="font-medium">{item.score}</span>
-            </div>
-          ))}
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#22C55E]">Examination :</span>
+            <span className="font-medium">120%</span>
+          </div>
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#22C55E]">Theory :</span>
+            <span className="font-medium">80.33%</span>
+          </div>
+          <div className="text-lg flex items-center justify-between">
+            <span className="font-bold text-[#22C55E]">Practical :</span>
+            <span className="font-medium">25%</span>
+          </div>
         </div>
       </CardContent>
     </Card>

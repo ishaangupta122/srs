@@ -7,15 +7,6 @@ export const navLinks = [
   { label: "Questions", to: "/questions" },
 ];
 
-export const teachers = [
-  { id: 1, name: "Sunita Sharma" },
-  { id: 2, name: "Arsh Kaur" },
-  { id: 3, name: "Monika Gupta" },
-  { id: 4, name: "Tarandeep Kaur" },
-  { id: 5, name: "Karman Singh" },
-  { id: 6, name: "Ishaan Gupta" },
-];
-
 export const students = [
   { id: 1, rollNo: "291111", name: "Student Name" },
   { id: 2, rollNo: "291111", name: "Student Name" },
@@ -34,11 +25,11 @@ export const semesters = [
 ];
 
 export const departments = [
-  { id: 1, department: "architectural", text: "Architechtural Assistantship" },
-  { id: 2, department: "civil", text: "Civil Engineering" },
-  { id: 3, department: "cse", text: "Computer Science Engineering" },
-  { id: 4, department: "electrical", text: "Electrical Engineering" },
-  { id: 5, department: "mechanical", text: "Mechanical Engineering" },
+  { id: 1, department: "Architectural", text: "Architechtural Assistantship" },
+  { id: 2, department: "Civil", text: "Civil Engineering" },
+  { id: 3, department: "CSE", text: "Computer Science Engineering" },
+  { id: 4, department: "Electrical", text: "Electrical Engineering" },
+  { id: 5, department: "Mechanical", text: "Mechanical Engineering" },
 ];
 
 export const reviewData = [

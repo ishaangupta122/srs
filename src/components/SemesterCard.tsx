@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export function SemesterCards() {
   const { theme } = useTheme();
+
   return (
     <div className="container mx-auto py-16 px-4 md:px-10">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

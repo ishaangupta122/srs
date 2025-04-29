@@ -68,12 +68,8 @@ export function TeachersTable() {
   };
 
   // Edit Teacher
-  const handleEditTeacher = (updatedTeacher: Teacher) => {
-    setTeachers((prev) =>
-      prev.map((teacher) =>
-        teacher._id === updatedTeacher._id ? updatedTeacher : teacher
-      )
-    );
+  const handleEditTeacher = () => {
+    fetchTeachers();
     setEditDialogOpen(false);
   };
 
