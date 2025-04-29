@@ -6,29 +6,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import { PenSquareIcon, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AddDialog } from "./Add";
 import { DeleteDialog } from "./Delete";
 import { EditDialog } from "./Edit";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "@/context/theme-provider";
 import { fetchTeachersList } from "@/api/teachers";
 import { Teacher } from "@/types/types";
 
 export function TeachersTable() {
-  const { theme } = useTheme();
-
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(false);
 
   const [isAddDialogOpen, setAddDialogOpen] = useState(false);
@@ -42,7 +31,6 @@ export function TeachersTable() {
     try {
       setLoading(true);
       const response = await fetchTeachersList();
-      console.log(response.data);
       setTeachers(response.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
@@ -61,33 +49,21 @@ export function TeachersTable() {
 
     if (!query) return true;
 
-    const checkIncludes = (arr: string[]) =>
-      arr.some((item) => item.toLowerCase().includes(query));
-
-    if (selectedCategory === "Department") {
-      return checkIncludes(teacher.branches);
-    }
-
-    if (selectedCategory === "Semester") {
-      return checkIncludes(teacher.semesters);
-    }
-
-    if (selectedCategory === "Subject") {
-      return checkIncludes(teacher.subjects);
-    }
-
-    // Default: All
     return (
       teacher.name.toLowerCase().includes(query) ||
-      checkIncludes(teacher.branches) ||
-      checkIncludes(teacher.semesters) ||
-      checkIncludes(teacher.subjects)
+      teacher.subjects.some((subject) =>
+        subject.toLowerCase().includes(query)
+      ) ||
+      teacher.semesters.some((semester) =>
+        semester.toLowerCase().includes(query)
+      ) ||
+      teacher.branches.some((branch) => branch.toLowerCase().includes(query))
     );
   });
 
   // Add Teacher
-  const handleAddTeacher = (newTeacher: Teacher) => {
-    setTeachers((prev) => [...prev, newTeacher]);
+  const handleAddTeacher = () => {
+    fetchTeachers();
     setAddDialogOpen(false);
   };
 
@@ -127,33 +103,6 @@ export function TeachersTable() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="h-12 w-[150px] text-lg cursor-pointer bg-[#22C55E]
-                  hover:bg-[#22C55E] text-white hover:text-white">
-                  {selectedCategory}
-                </Button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                className={` ${
-                  theme === "dark"
-                    ? ""
-                    : "bg-[#22C55E] hover:bg-[#22c563] text-white hover:text-white"
-                }`}>
-                {["All", "Department", "Semester", "Subject"].map((item) => (
-                  <DropdownMenuItem
-                    key={item}
-                    onClick={() => setSelectedCategory(item)}
-                    className="cursor-pointer text-lg">
-                    {item}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
 

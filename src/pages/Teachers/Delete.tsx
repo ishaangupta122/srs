@@ -24,12 +24,11 @@ export const DeleteDialog = ({
 
     try {
       setLoading(true);
-      // const data = await deleteTeacher(teacherId);
-      // console.log("Teacher Deleted Successfully:\n", data);
+      await deleteTeacher(teacherId);
       onDelete(teacherId);
       onClose();
     } catch (error) {
-      console.error("Error deleting teacher:", error);
+      console.error("Error deleting teacher:\n", error);
     } finally {
       setLoading(false);
     }

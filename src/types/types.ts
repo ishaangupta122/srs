@@ -18,7 +18,7 @@ export interface StarRatingProps {
 }
 
 export interface Teacher {
-  _id: string;
+  _id?: string;
   name: string;
   semesters: string[];
   subjects: string[];

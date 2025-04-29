@@ -14,7 +14,7 @@ const API = axios.create({
 // Fetch all teachers
 export const fetchTeachersList = async (): Promise<any> => {
   try {
-    const data = await API.get("/");
+    const data = await API.get("/all/teachers");
     return data;
   } catch (error) {
     console.error("Error fetching teachers list: \n", error);
@@ -22,13 +22,18 @@ export const fetchTeachersList = async (): Promise<any> => {
   }
 };
 
-// Fetch teacher by ID
-export const fetchTeacherById = async (id: string): Promise<any> => {
+// Fetch teacher by Branch and Semester
+export const fetchTeacherByBranchAndSemester = async (
+  branch: string,
+  semester: string
+): Promise<any> => {
   try {
-    const data = await API.get(`/${id}`);
+    const data = await API.get(
+      `/teachers?branch=${branch}&semester=${semester}`
+    );
     return data;
   } catch (error) {
-    console.error("Error fetching teacher by ID: \n", error);
+    console.error("Error fetching teacher by branch and semester: \n", error);
     throw error;
   }
 };

@@ -43,9 +43,16 @@ export const EditDialog = ({
     }
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      setText(question ? question.text : "");
+      onClose();
+    }
+  };
+
   return (
     <div>
-      <Dialog open={isOpen} onOpenChange={onClose}>
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Question</DialogTitle>

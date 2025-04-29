@@ -26,8 +26,15 @@ export const AddDialog = ({ isOpen, onClose, onAdd }: AddQuestionProps) => {
     }
   };
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      setText("");
+      onClose();
+    }
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add New Question</DialogTitle>
