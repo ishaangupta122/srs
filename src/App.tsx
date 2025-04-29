@@ -13,7 +13,7 @@ const App = () => {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/reviews" element={<SemesterCards />} />
+        <Route path="/" element={<SemesterCards />} />
         <Route
           path="/reviews/semester/:semesterId"
           element={<DepartmentsCards />}
@@ -23,7 +23,7 @@ const App = () => {
           element={<TeacherCards />}
         />
         <Route
-          path="/teachers/teacherProfile/:teacherId"
+          path="/reviews/semester/:semesterId/department/:departmentId/teacher/:teacherId"
           element={<TeacherProfile />}
         />
         <Route

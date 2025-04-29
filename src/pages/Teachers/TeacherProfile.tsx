@@ -22,9 +22,11 @@ import { useTheme } from "@/context/theme-provider";
 import { UserCircle2 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StudentCards } from "@/components/StudentCard";
 import Comments from "@/components/Comments";
+import { fetchTeacherReviews } from "@/api/reviews";
+import { fetchTeacherByBranchAndSemester } from "@/api/teachers";
 
 // Overview Component
 const Overview = () => {
@@ -170,9 +172,67 @@ const TeacherProfileComponent = () => {
   );
 };
 
-// Main Page
 export function TeacherProfile() {
+  const { teacherId, semesterId, departmentId } = useParams();
+  const [subject, setSubject] = useState<string | undefined>("");
+  const [eda, setEda] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
+
+  const extractSubject = (name: string): string | undefined => {
+    const match = name.match(/\(([^)]+)\)/);
+    return match ? match[1] : undefined;
+  };
+
+  const fetchTeacherByQueryParmas = async () => {
+    try {
+      setLoading(true);
+      const response = await fetchTeacherByBranchAndSemester(
+        departmentId,
+        semesterId
+      );
+      console.log("Teachers by Branch and Semester:\n", response.data);
+
+      const matchedTeacher = response.data.find(
+        (teacher: { _id: string }) => teacher._id === teacherId
+      );
+
+      if (matchedTeacher) {
+        const extractedSubject = extractSubject(matchedTeacher.name);
+        setSubject(extractedSubject); // still update state
+        fetchReviews(extractedSubject); // use directly to avoid stale value
+      } else {
+        console.warn("Teacher not found with ID:", teacherId);
+      }
+    } catch (error) {
+      console.error("Error fetching teachers:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchReviews = async (subjectName: string | undefined) => {
+    try {
+      setLoading(true);
+      console.log(teacherId, subjectName, departmentId);
+
+      const response = await fetchTeacherReviews(
+        teacherId,
+        subjectName,
+        departmentId
+      );
+      console.log("Reviews Data:\n", response);
+      setEda(response.data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTeacherByQueryParmas();
+  }, []);
 
   const renderContent = () => {
     switch (activeTab) {

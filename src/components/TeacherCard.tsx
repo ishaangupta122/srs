@@ -19,7 +19,6 @@ export function TeacherCards() {
         departmentId,
         semesterId
       );
-      console.log("Teachers by Branch and Semester:\n", response.data);
       setTeachers(response.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
@@ -55,7 +54,7 @@ export function TeacherCards() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {teachers.map((teacher) => (
               <Link
-                to={`/teachers/teacherProfile/${teacher._id}`}
+                to={`/reviews/semester/${semesterId}/department/${departmentId}/teacher/${teacher._id}`}
                 key={teacher._id}>
                 <Card className="p-0 hover:shadow-md transition">
                   <CardContent className="flex items-center gap-4 p-4">

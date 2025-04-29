@@ -1,5 +1,5 @@
 export const navLinks = [
-  { label: "Reviews", to: "/reviews" },
+  { label: "Reviews", to: "/" },
   {
     label: "Teachers",
     to: "/teachers",
