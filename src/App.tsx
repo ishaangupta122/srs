@@ -23,11 +23,11 @@ const App = () => {
           element={<TeacherCards />}
         />
         <Route
-          path="/reviews/semester/:semesterId/department/:departmentId/teacher/:teacherId"
+          path="/reviews/semester/:semester/department/:departmentId/teacher/:teacherId/subject/:subject"
           element={<TeacherProfile />}
         />
         <Route
-          path="/reviews/semester/:semesterId/department/:departmentId/teacher/:teacherId/student/:studentId"
+          path="/reviews/semester/:semester/department/:departmentId/teacher/:teacherId/student/:studentId"
           element={<StudentReviewPage />}
         />
         <Route path="/teachers" element={<TeachersTable />} />

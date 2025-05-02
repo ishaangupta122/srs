@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const EDA_URL = `${BASE_URL}/eda`;
 
