@@ -2,7 +2,7 @@ import { Theme, ThemeProviderProps, ThemeProviderState } from "@/types/types";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: "dark", 
   setTheme: () => null,
 };
 
@@ -10,7 +10,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "dark", 
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
