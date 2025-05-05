@@ -20,17 +20,13 @@ import {
 } from "@/components/ui/card";
 import { useTheme } from "@/context/theme-provider";
 import { UserCircle2 } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { StudentCards } from "@/components/StudentCard";
-import Comments from "@/components/Comments";
+import { useEffect, useState } from "react";
+import { BASE_URL } from "@/api/eda";
 
-// Overview Component
-const Overview = () => {
-  const { teacherId } = useParams();
+const Overview = ({ teacherId }: { teacherId: string }) => {
   const { theme } = useTheme();
-
   return (
     <Card className="mb-6">
       <CardHeader className="flex items-center gap-5">
@@ -40,10 +36,7 @@ const Overview = () => {
           <UserCircle2 className="h-16 w-16 text-[#22C55E]" />
         )}
         <div>
-          <CardTitle
-            className={`text-xl ${
-              theme === "dark" ? "text-white" : "text-[#22C55E]"
-            }`}>
+          <CardTitle className={`text-xl ${theme === "dark" ? "text-white" : "text-[#22C55E]"}`}>
             {teacherId}
           </CardTitle>
         </div>
@@ -52,8 +45,23 @@ const Overview = () => {
   );
 };
 
-// Reviews Component
-const Reviews = () => {
+const Reviews = ({
+  data,
+}: {
+  data: {
+    totalReviews: number;
+    positiveReviews: number;
+    moderateReviews: number;
+    negativeReviews: number;
+  };
+}) => {
+  const chartData = [
+    { name: "Total", value: data.totalReviews },
+    { name: "Positive", value: data.positiveReviews },
+    { name: "Moderate", value: data.moderateReviews },
+    { name: "Negative", value: data.negativeReviews },
+  ];
+
   return (
     <Card className="mb-6">
       <CardHeader>
@@ -61,50 +69,36 @@ const Reviews = () => {
         <CardDescription>Distribution of review types</CardDescription>
       </CardHeader>
       <CardContent className="max-w-5xl flex flex-col md:flex-row items-center justify-between">
-        {/* Pie Chart (Manually Created) */}
         <div className="w-full md:w-1/2 h-80">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie
-                data={[
-                  { name: "Total", value: 120 },
-                  { name: "Positive", value: 80.33 },
-                  { name: "Moderate", value: 25 },
-                  { name: "Negative", value: 15 },
-                ]}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                label>
-                <Cell fill="#2196f3" /> {/* Total */}
-                <Cell fill="#22C55E" /> {/* Positive */}
-                <Cell fill="#ff9800" /> {/* Moderate */}
-                <Cell fill="#f44336" /> {/* Negative */}
+              <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label>
+                <Cell fill="#2196f3" />
+                <Cell fill="#22C55E" />
+                <Cell fill="#ff9800" />
+                <Cell fill="#f44336" />
               </Pie>
               <Tooltip />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
-
         <div className="w-full md:w-1/3 mt-6 md:mt-0 space-y-3">
-          <div className="text-lg flex items-center justify-between">
+          <div className="text-lg flex justify-between">
             <span className="font-bold text-[#2196f3]">Total :</span>
-            <span className="font-medium">120</span>
+            <span>{data.totalReviews}</span>
           </div>
-          <div className="text-lg flex items-center justify-between">
+          <div className="text-lg flex justify-between">
             <span className="font-bold text-[#22C55E]">Positive :</span>
-            <span className="font-medium">80.33</span>
+            <span>{data.positiveReviews}</span>
           </div>
-          <div className="text-lg flex items-center justify-between">
+          <div className="text-lg flex justify-between">
             <span className="font-bold text-[#ff9800]">Moderate :</span>
-            <span className="font-medium">25</span>
+            <span>{data.moderateReviews}</span>
           </div>
-          <div className="text-lg flex items-center justify-between">
+          <div className="text-lg flex justify-between">
             <span className="font-bold text-[#f44336]">Negative :</span>
-            <span className="font-medium">15</span>
+            <span>{data.negativeReviews}</span>
           </div>
         </div>
       </CardContent>
@@ -112,8 +106,21 @@ const Reviews = () => {
   );
 };
 
-// Scores Component
-const Scores = () => {
+const Scores = ({
+  data,
+}: {
+  data: {
+    examScore: number;
+    theoryScore: number;
+    practicalScore: number;
+  };
+}) => {
+  const scoreData = [
+    { name: "Examination", score: data.examScore },
+    { name: "Theory", score: data.theoryScore },
+    { name: "Practical", score: data.practicalScore },
+  ];
+
   return (
     <Card className="mb-6">
       <CardHeader>
@@ -123,96 +130,122 @@ const Scores = () => {
       <CardContent className="max-w-5xl flex flex-col md:flex-row items-center justify-between">
         <div className="w-full md:w-1/2 h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={[
-                { name: "Examination", score: 88 },
-                { name: "Theory", score: 85 },
-                { name: "Practical", score: 90 },
-              ]}>
+            <BarChart data={scoreData}>
               <CartesianGrid strokeDasharray="4 4" />
               <XAxis dataKey="name" />
-              <YAxis domain={[0, 100]} />
+              <YAxis domain={[0, 5]} />
               <Tooltip />
               <Legend />
               <Bar dataKey="score" fill="#22C55E" />
             </BarChart>
           </ResponsiveContainer>
         </div>
-
-        {/* Text Fields */}
         <div className="w-full md:w-1/3 mt-6 md:mt-0 space-y-3 md:px-5">
-          <div className="text-lg flex items-center justify-between">
-            <span className="font-bold text-[#22C55E]">Examination :</span>
-            <span className="font-medium">120%</span>
-          </div>
-          <div className="text-lg flex items-center justify-between">
-            <span className="font-bold text-[#22C55E]">Theory :</span>
-            <span className="font-medium">80.33%</span>
-          </div>
-          <div className="text-lg flex items-center justify-between">
-            <span className="font-bold text-[#22C55E]">Practical :</span>
-            <span className="font-medium">25%</span>
-          </div>
+          {scoreData.map((item) => (
+            <div key={item.name} className="text-lg flex justify-between">
+              <span className="font-bold text-[#22C55E]">{item.name} :</span>
+              <span>{item.score}</span>
+            </div>
+          ))}
         </div>
       </CardContent>
     </Card>
   );
 };
 
-// TeacherProfileComponent (Page Content)
-const TeacherProfileComponent = () => {
+const ReviewCards = ({ reviews, onStudentClick }: { reviews: any[], onStudentClick: (id: string) => void }) => {
   return (
-    <div>
-      <Overview />
-      <Reviews />
-      <Scores />
+    <div className="space-y-4">
+      {reviews.map((review) => (
+        <Card key={review._id} onClick={() => onStudentClick(review.studentId)} className="cursor-pointer">
+          <CardHeader>
+            <CardTitle>Student ID: {review.studentId}</CardTitle>
+            <CardDescription>Comment: {review.overallFeedback}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>{review.comment}</p>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };
 
-// Main Page
 export function TeacherProfile() {
+  const {semester, teacherId, departmentId, subject} = useParams();
+  console.log(semester)
+  const navigate = useNavigate();
+  const [eda, setEda] = useState<any>(null);
+  const [reviews, setReviews] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("overview");
+  const [loading, setLoading] = useState(false);
+
+  const fetchEdaData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`${BASE_URL}/eda/${teacherId}/${subject}/${departmentId}`);
+      const json = await res.json();
+      setEda(json);
+    } catch (err) {
+      console.error("Failed to fetch EDA:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch(
+        `${BASE_URL}/reviews/filter?branch=${departmentId}&subject=${subject}&teacherId=${teacherId}`
+      );
+      const data = await res.json();
+      setReviews(data);
+    } catch (err) {
+      console.error("Failed to fetch reviews:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (teacherId && subject && departmentId) {
+      fetchEdaData();
+      fetchReviews();
+    }
+  }, [teacherId, subject, departmentId]);
+
+  const handleStudentClick = (studentId: string) => {
+    navigate(`/reviews/semester/${subject}/department/${departmentId}/teacher/${teacherId}/student/${studentId}`);
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case "overview":
-        return <TeacherProfileComponent />;
+        return (
+          <>
+            <Overview teacherId={teacherId!} />
+            <Reviews data={eda} />
+            <Scores data={eda} />
+          </>
+        );
       case "reviews":
-        return <StudentCards />;
+        return <ReviewCards reviews={reviews} onStudentClick={handleStudentClick} />;
       case "comments":
-        return <Comments />;
+        return <p>Comments section coming soon</p>;
       default:
-        return <Overview />;
+        return null;
     }
   };
 
   return (
     <div className="container mx-auto px-4 mt-5 md:px-10 md:mt-16">
-      {/* Navigation Bar */}
       <div className="flex space-x-4 mb-6">
-        <Button
-          className="cursor-pointer"
-          variant={activeTab === "overview" ? "default" : "outline"}
-          onClick={() => setActiveTab("overview")}>
+        <Button variant={activeTab === "overview" ? "default" : "outline"} onClick={() => setActiveTab("overview")}>
           Overview
         </Button>
-        <Button
-          className="cursor-pointer"
-          variant={activeTab === "reviews" ? "default" : "outline"}
-          onClick={() => setActiveTab("reviews")}>
+        <Button variant={activeTab === "reviews" ? "default" : "outline"} onClick={() => setActiveTab("reviews")}>
           Reviews
         </Button>
-        <Button
-          className="cursor-pointer"
-          variant={activeTab === "comments" ? "default" : "outline"}
-          onClick={() => setActiveTab("comments")}>
-          Comments
-        </Button>
       </div>
-
-      {/* Render Selected Content */}
-      {renderContent()}
+      {loading ? <p>Loading data...</p> : eda ? renderContent() : <p>No data found</p>}
     </div>
   );
 }

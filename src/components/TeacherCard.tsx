@@ -19,7 +19,6 @@ export function TeacherCards() {
         departmentId,
         semesterId
       );
-      console.log("Teachers by Branch and Semester:\n", response.data);
       setTeachers(response.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
@@ -39,24 +38,29 @@ export function TeacherCards() {
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#22C55E]"></div>
         </div>
       ) : teachers.length === 0 ? (
-        <div className=" flex items-center justify-center py-10">
+        <div className="flex items-center justify-center py-10">
           <div className="flex flex-col justify-center items-center">
             <span className="text-xl font-medium text-gray-500">
               No teachers found for this semester and branch.
             </span>
             <div className="mt-2 text-[#22C55E] font-medium text-lg">
-              <span className="">Semester : {semesterId}, </span>
-              <span className="">Branch : {departmentId}</span>
+              <span>Semester : {semesterId}, </span>
+              <span>Branch : {departmentId}</span>
             </div>
           </div>
         </div>
       ) : (
-        <>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {teachers.map((teacher) => (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {teachers.map((teacher) => {
+            // Extract subject from name (inside parentheses)
+            const subjectMatch = teacher.name.match(/\(([^)]+)\)/);
+            const subject = subjectMatch ? subjectMatch[1] : "Unknown";
+
+            return (
               <Link
-                to={`/teachers/teacherProfile/${teacher._id}`}
-                key={teacher._id}>
+                to={`/reviews/semester/${semesterId}/department/${departmentId}/teacher/${teacher._id}/subject/${encodeURIComponent(subject)}`}
+                key={teacher._id}
+              >
                 <Card className="p-0 hover:shadow-md transition">
                   <CardContent className="flex items-center gap-4 p-4">
                     {theme === "dark" ? (
@@ -77,9 +81,9 @@ export function TeacherCards() {
                   </CardContent>
                 </Card>
               </Link>
-            ))}
-          </div>
-        </>
+            );
+          })}
+        </div>
       )}
     </div>
   );
