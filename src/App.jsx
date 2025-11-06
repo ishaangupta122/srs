@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { BASE_URL } from './base/Base';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from './theme/ThemeContext'; // Assuming ThemeContext is already created
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "/config";
+import { useNavigate } from "react-router-dom";
+import { useTheme } from "./theme/ThemeContext";
 
 const TeacherList = () => {
   const { darkMode } = useTheme();
   const [teachers, setTeachers] = useState([]);
   const [filteredTeachers, setFilteredTeachers] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const extractSubject = (name) => {
     const match = name.match(/\(([^)]+)\)/);
-    return match ? match[1] : 'Unknown';
+    return match ? match[1] : "Unknown";
   };
 
   const fetchTeachers = async () => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const reviewed = JSON.parse(localStorage.getItem('reviewedTeachers')) || [];
+      const user = JSON.parse(localStorage.getItem("user"));
+      const reviewed =
+        JSON.parse(localStorage.getItem("reviewedTeachers")) || [];
 
       if (!user?.branch || !user?.semester) {
-        console.error('Branch or Semester not found in user object');
+        console.error("Branch or Semester not found in user object");
         setLoading(false);
         return;
       }
@@ -33,16 +34,16 @@ const TeacherList = () => {
       });
 
       const unreviewed = response.data
-        .filter(t => !reviewed.includes(t._id))
-        .map(t => ({
+        .filter((t) => !reviewed.includes(t._id))
+        .map((t) => ({
           ...t,
-          subject: extractSubject(t.name)
+          subject: extractSubject(t.name),
         }));
 
       setTeachers(unreviewed);
       setFilteredTeachers(unreviewed);
     } catch (error) {
-      console.error('Failed to fetch teachers:', error);
+      console.error("Failed to fetch teachers:", error);
     } finally {
       setLoading(false);
     }
@@ -66,11 +67,17 @@ const TeacherList = () => {
     navigate(`/review/${teacher._id}`, { state: { subject: subject } });
   };
 
-
   return (
-    <div className={`min-h-screen p-6 ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-      <div className={`max-w-4xl mx-auto rounded-xl shadow-md p-6 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
-        <h1 className={`text-3xl font-bold text-center ${darkMode ? 'text-green-300' : 'text-green-800'} mb-6`}>
+    <div
+      className={`min-h-screen p-6 ${darkMode ? "bg-gray-800" : "bg-gray-50"}`}>
+      <div
+        className={`max-w-4xl mx-auto rounded-xl shadow-md p-6 ${
+          darkMode ? "bg-gray-900" : "bg-white"
+        }`}>
+        <h1
+          className={`text-3xl font-bold text-center ${
+            darkMode ? "text-green-300" : "text-green-800"
+          } mb-6`}>
           Your Teachers
         </h1>
 
@@ -79,7 +86,11 @@ const TeacherList = () => {
           placeholder="Search Teachers..."
           value={searchTerm}
           onChange={handleSearch}
-          className={`w-full mb-6 p-3 border rounded-lg focus:outline-none focus:ring-2 ${darkMode ? 'border-green-500 bg-gray-700 text-white focus:ring-green-600' : 'border-green-700 text-black focus:ring-green-600'}`}
+          className={`w-full mb-6 p-3 border rounded-lg focus:outline-none focus:ring-2 ${
+            darkMode
+              ? "border-green-500 bg-gray-700 text-white focus:ring-green-600"
+              : "border-green-700 text-black focus:ring-green-600"
+          }`}
         />
 
         {loading ? (
@@ -92,8 +103,11 @@ const TeacherList = () => {
               <li
                 key={teacher._id}
                 onClick={() => handleTeacherClick(teacher)}
-                className={`cursor-pointer border p-4 rounded-lg transition-shadow ${darkMode ? 'bg-gray-800 border-green-500 text-white hover:shadow-lg' : 'bg-white border-green-700 text-black hover:shadow-lg'}`}
-              >
+                className={`cursor-pointer border p-4 rounded-lg transition-shadow ${
+                  darkMode
+                    ? "bg-gray-800 border-green-500 text-white hover:shadow-lg"
+                    : "bg-white border-green-700 text-black hover:shadow-lg"
+                }`}>
                 <p className="text-lg font-semibold">{teacher.name}</p>
                 <p className="text-sm text-gray-500">Id: {teacher._id}</p>
               </li>
