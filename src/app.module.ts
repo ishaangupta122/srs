@@ -7,20 +7,18 @@ import { TeachersModule } from './teachers/teachers.module';
 import { QuestionsModule } from './questions/questions.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { EdaModule } from './eda/eda.module';
-// import { ReviewsModule } from './reviews/reviews.module';
 // import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), 
-    MongooseModule.forRoot(process.env.MONGO_URI), 
-    AuthModule, 
-    UserModule, 
-    TeachersModule, 
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.MONGO_URI),
+    AuthModule,
+    UserModule,
+    TeachersModule,
     QuestionsModule,
     ReviewsModule,
-    EdaModule
-    // ReviewsModule, // ✅ Reviews & Ratings Module
+    EdaModule,
     // AdminModule, // ✅ Admin Management Module
   ],
 })
